@@ -1,12 +1,11 @@
 import chess
 import chess.engine
 import time
-import math
 
 start_time = time.time()
 #r1bq1rkR/1ppnbpp1/p3p3/4P3/4BB2/4P3/PPP2PP1/RN1QK3 w Qq - 1 1
 board = chess.Board()
-print(board)
+
 engine = chess.engine.SimpleEngine.popen_uci("/home/qqze/Documents/NeuralWorks/NeuralChess/NeuralChess/V00/stockfish_20090216_x64_bmi2")
 
 
@@ -23,7 +22,7 @@ def minimax(node, depth, maxPlayer):
         return None, evalDict["score"].relative.score(mate_score=100000)
 
     if maxPlayer:
-        max_eval = -math.inf
+        max_eval = -1000000
         for child in node.legal_moves:
             eval = minimax(moveToPosition(node, child), depth - 1, False)[1]
             if eval > max_eval:
@@ -32,7 +31,7 @@ def minimax(node, depth, maxPlayer):
         return best_move, max_eval
 
     else:
-        min_eval = math.inf
+        min_eval = 1000000
         for child in node.legal_moves:
             eval = minimax(moveToPosition(node, child), depth - 1, True)[1]
             if eval < min_eval:
@@ -44,4 +43,5 @@ def minimax(node, depth, maxPlayer):
 best_move, best_eval = minimax(board, 2, True)
 print(f"best move: {best_move}, eval: {best_eval/100}")
 print(f"finished in {time.time() - start_time} seconds")
-print(board.legal_moves)
+board.push(best_move)
+print(board)
