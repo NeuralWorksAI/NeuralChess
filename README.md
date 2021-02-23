@@ -7,5 +7,5 @@ Needed: Minimax, Alpha-beta pruning, Evaluation function (stockfish) [COMPLETED]
 Bugs: odd depth causes bad moves
 
 ## Version 1 (basic NN):
-Target: 1000 elo rating   
+Target: 1200 elo rating   
 Needed: Basic NN adition
